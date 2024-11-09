@@ -2,8 +2,10 @@ import React from 'react';
 import { useState,useEffect } from 'react';
 import Datepicker from "tailwind-datepicker-react"
 import icon from '../../assets/pictures/icons8-calendar-96.png';
+import ScreenSize from './ScreenSize';
 const CalendarIcon = () => (
     <img src={icon} className='w-20 h-20' alt="" />
+   
     // <svg
     //     xmlns="http://www.w3.org/2000/svg"
     //     className="h-5 w-5 mr-2 text-gray-600" // Adjust size and color as needed
@@ -20,6 +22,7 @@ const CalendarIcon = () => (
     // </svg>
 );
 const  GregorianCalender = ({sendGregorianData}) => {
+    const {isDesktopOrLaptop,isMobile,isTablet}=ScreenSize();
     useEffect(()=>{
              setTimeout(()=>{
                  setShow(true);
@@ -61,7 +64,7 @@ const  GregorianCalender = ({sendGregorianData}) => {
             prev: () => <span>Previous</span>,
             next: () => <span>Next</span>,
         },
-        datepickerClassNames: "top-0 left-10",
+        datepickerClassNames: `${isMobile ? "top-0 left-2":""} ${isDesktopOrLaptop ? "top-0 left-96":""}`,
         defaultDate: new Date("2022-01-01"),
         language: "en",
         disabledDates: [],

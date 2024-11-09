@@ -3,7 +3,21 @@ import { useState,useEffect,useRef } from 'react';
 import { ET,US } from 'country-flag-icons/react/3x2'
 import ScrollableYearSelector from './ScrollableDiv';
 import ScreenSize from './ScreenSize';
-import ComponentName from './Calculate';const  ConvertButton = ({calenderSelected,fromTrack,gregorianDate,ethiopianDate,fromEthiopianToGregorian,fromGregorianToEthiopia}) => {
+import imageWheat from '../../assets/pictures/wheat.avif';
+import imageShegar from '../../assets/pictures/shegar.avif';
+import imageSpring from '../../assets/pictures/springNew.avif';
+import imageSpringNew from '../../assets/pictures/spring.avif';
+import imageNewYear from '../../assets/pictures/new year.avif';
+ 
+import desertMob from '../../assets/pictures/desert mob.avif';
+import forestMob from '../../assets/pictures/fores.avif';
+import forest2Mob from '../../assets/pictures/forest mobil.avif';
+import forest3Mob from '../../assets/pictures/forestt.avif';
+import riverMob from '../../assets/pictures/river.avif';
+import eve from '../../assets/pictures/evedeskt.avif'
+
+import ComponentName from './Calculate';
+const  ConvertButton = ({calenderSelected,fromTrack,gregorianDate,ethiopianDate,fromEthiopianToGregorian,fromGregorianToEthiopia,changeDesktopImage}) => {
     const [fromClicked,setFromClicked]=useState(false);
     const [toClicked,setToClicked]=useState(false);
     const [ecClickedFrom,setEcClickedFrom]=useState(false);
@@ -17,7 +31,9 @@ import ComponentName from './Calculate';const  ConvertButton = ({calenderSelecte
     const refDiv = useRef(null);
     const [isVisible, setIsVisible] = useState(false);
     const {isDesktopOrLaptop,isMobile,isTablet}=ScreenSize();
-
+    const [showImageBackGround,setShowImageBackGround]=useState(false);
+    const [selectedImage,setSelectedImage]=useState("");
+    const collectionImages=[imageNewYear,imageSpring,imageShegar,riverMob,forest2Mob,forest3Mob,forestMob,imageWheat,imageSpringNew,desertMob,imageShegar,forestMob,eve,];
     const handleClickOutside = (event) => {
         // Check if the click is outside the component
         if (refDiv.current && !refDiv.current.contains(event.target)) {
@@ -68,7 +84,8 @@ import ComponentName from './Calculate';const  ConvertButton = ({calenderSelecte
               
       },[animateInComponent]);
 useEffect(()=>{
-   if(ethiopianDate != ""){
+   if(ethiopianDate != "" && gregorianDate != ""){
+    setShowImageBackGround(true);
     const dateParts = ethiopianDate.split('-');
     const dataPartsGreg=gregorianDate.split('-');
     // Output the result
@@ -76,7 +93,9 @@ useEffect(()=>{
     const yearGreg=dataPartsGreg[0];
     // Accessing individual parts
     const year = dateParts[0];  // "1995"
-    const month = ETHIOPIAN_MONTH_NAMES[(parseInt(dateParts[1])-1)]; 
+    const month = ETHIOPIAN_MONTH_NAMES[(parseInt(dateParts[1])-1)];
+    setSelectedImage(collectionImages[parseInt(dateParts[1]-1)]);
+    changeDesktopImage(collectionImages[parseInt(dateParts[1]-1)]);
      const monthGreg=dataPartsGreg[1];
     // "1"
     const day = dateParts[2];  
@@ -122,8 +141,15 @@ useEffect(()=>{
         <>
            {
             animateInComponent && (
-                <div className={` ${reduceOpacity ? "opacity-95":"animate-fade-in"} ${isDesktopOrLaptop ? "w-2/3":""} ${isMobile ? "w-full":""} ${isTablet ? "w-1/2":""} absolute bottom-0 h-1/2 bg-red-300 flex justify-center items-start mt-4`}>
-                <div className='w-full  flex justify-around items-start p-4 rounded-lg shadow-lg'>
+                <div className={` ${reduceOpacity ? "opacity-95":"animate-fade-in"} ${isDesktopOrLaptop ? "w-1/3":""} ${isMobile ? "w-full":""} ${isTablet ? "w-1/2":""} absolute bottom-0 h-1/2 ${showImageBackGround ? "":"bg-red-300"} flex justify-center items-start mt-4 cursor-pointer`}>
+                     {
+                        showImageBackGround && (
+                            <img src={selectedImage} className='w-full h-full absolute bottom-0 animate-fade-in'
+                            alt="" />
+                        )
+                     }
+                    
+                <div className='w-full  flex justify-around items-start p-4 rounded-lg shadow-lg z-10'>
                     <div
                     ref={refDiv}
                     className='flex flex-col items-center justify-start w-full'>

@@ -48,8 +48,8 @@ function EthiopianCalendar({sendEthiopiaDate}){
         setHideEthioCalender(true);
       }
     return (
-        <div className={` ${hideEthioCalender ? "hidden":""} ${isDesktopOrLaptop ? "w-2/3":""} ${isMobile ? "w-full":""}  ${isTablet ? "w-1/2":""} flex justify-center items-center h-1/3 absolute top-10 z-50`} >
-                    <div className='w-full h-full flex justify-center items-center bg-red-300 ' >
+        <div className={` ${hideEthioCalender ? "hidden":""} ${isDesktopOrLaptop ? "w-1/3 justify-center":""} ${isMobile ? "w-full justify-center":""}  ${isTablet ? "w-1/2 justify-center":""} cursor-pointer flex items-center h-1/3 absolute top-10 z-50`} >
+                    <div className={`w-full h-full flex justify-center  items-center `} >
                     {
                         !monthSelected && (
                             <div className='h-full flex flex-col justify-start items-center overflow-y-scroll w-1/2 bg-white text-green-300'>

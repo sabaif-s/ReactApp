@@ -24,6 +24,8 @@ function App() {
              const [fromEthioToGreg,setFromEthioToGreg]=useState(false);
              const [showIntroCalender,setShowIntroCalender]=useState(false);
              const {isDesktopOrLaptop,isMobile,isTablet}=ScreenSize();
+             const [changeImage,setChangeImage]=useState(false);
+             const [newSetImage,setNewSetImage]=useState("");
 
              useEffect(()=>{
                   if(finishBack){
@@ -31,6 +33,9 @@ function App() {
                     setFinishBack(true);
                   }
              },[finishBack]);
+             useEffect(()=>{
+                  
+             },[gregorianDate,ethiopianDate]);
              useEffect(()=>{
                     console.log("calculated result",calculatedResult);
                     setEthiopianDate(calculatedResult);
@@ -137,10 +142,14 @@ function App() {
     // Return the formatted date
     return `${year}-${month}-${day}`;
 };
+function changeDesktopImage(url){
+    setChangeImage(true);
+    setNewSetImage(url);
+}
 
   return (
-    <div className={` ${isTablet ? "":""} flex items-start justify-center h-screen w-full overflow-x-hidden relative bg-gray-100`}>
-        <BackGroundMobile   finishedBack={backGroundFinished} />
+    <div className={` ${isTablet ? "":""} flex items-start justify-center h-screen w-full overflow-x-hidden relative bg-gray-600`}>
+        <BackGroundMobile   finishedBack={backGroundFinished} changeImage={changeImage} newImage={newSetImage} />
         {
           showIntroCalender && (
             <IntroCalender />
@@ -162,7 +171,7 @@ function App() {
               )
             }
             
-            <ConvertButton calenderSelected={calenderSelectedFunction} fromEthiopianToGregorian={fromEthioToGreg} fromGregorianToEthiopia={fromGregToEthio} fromTrack={functionFromTrackClicked} ethiopianDate={ethiopianDate} gregorianDate={gregorianDate}  />
+            <ConvertButton changeDesktopImage={changeDesktopImage} calenderSelected={calenderSelectedFunction} fromEthiopianToGregorian={fromEthioToGreg} fromGregorianToEthiopia={fromGregToEthio} fromTrack={functionFromTrackClicked} ethiopianDate={ethiopianDate} gregorianDate={gregorianDate}  />
             </>
           )
         }
