@@ -4,6 +4,7 @@ import flagDesktop from '../../assets/pictures/premium_photo-1674591173440-e559d
 import { useEffect,useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import ScreenSize from './ScreenSize';
+import desktopBack from '../../assets/pictures/48421.jpg';
 
 const  BackGroundMobile = ({finishedBack,changeImage,newImage}) => {
     const [imageFullLoad,setImageFullLoad]=useState(false);
@@ -24,7 +25,7 @@ const  BackGroundMobile = ({finishedBack,changeImage,newImage}) => {
            setTimeout(()=>{
                      setNewSettedImage(newImage);
                     
-           },2000);
+           },1700);
          
       }
     },[newImage,changeImage]);
@@ -33,7 +34,7 @@ const  BackGroundMobile = ({finishedBack,changeImage,newImage}) => {
          setFadeOutSecond(true);
          setTimeout(()=>{
                setFadeOutSecond(false);
-         },2000);
+         },1700);
        }
     },[currentImage]);
         
@@ -108,7 +109,7 @@ const  BackGroundMobile = ({finishedBack,changeImage,newImage}) => {
                            newSettedImage == '' && (
                               <img 
                               onLoad={handleLoad} 
-                           src={flagDesktop} className={` ${fadeOutFirst ? "animate-fade-out":""} w-full h-full`} alt="" />
+                           src={desktopBack} className={` ${fadeOutFirst ? "animate-fade-out":""} w-full h-full`} alt="" />
                            )
                         }
                       

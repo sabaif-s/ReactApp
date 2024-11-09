@@ -17,7 +17,7 @@ import riverMob from '../../assets/pictures/river.avif';
 import eve from '../../assets/pictures/evedeskt.avif'
 
 import ComponentName from './Calculate';
-const  ConvertButton = ({calenderSelected,fromTrack,gregorianDate,ethiopianDate,fromEthiopianToGregorian,fromGregorianToEthiopia,changeDesktopImage}) => {
+const  ConvertButton = ({calenderSelected,fromTrack,gregorianDate,ethiopianDate,fromEthiopianToGregorian,fromGregorianToEthiopia,changeDesktopImage,hideBothCalender}) => {
     const [fromClicked,setFromClicked]=useState(false);
     const [toClicked,setToClicked]=useState(false);
     const [ecClickedFrom,setEcClickedFrom]=useState(false);
@@ -33,14 +33,19 @@ const  ConvertButton = ({calenderSelected,fromTrack,gregorianDate,ethiopianDate,
     const {isDesktopOrLaptop,isMobile,isTablet}=ScreenSize();
     const [showImageBackGround,setShowImageBackGround]=useState(false);
     const [selectedImage,setSelectedImage]=useState("");
+    const [hideCalender,setHideCalender]=useState(false);
+    const [animateFadeOut,setAnimateFadeOut]=useState(false);
+    const [animateFadeIn,setAnimateFadeIn]=useState(false);
     const collectionImages=[imageNewYear,imageSpring,imageShegar,riverMob,forest2Mob,forest3Mob,forestMob,imageWheat,imageSpringNew,desertMob,imageShegar,forestMob,eve,];
     const handleClickOutside = (event) => {
         // Check if the click is outside the component
         if (refDiv.current && !refDiv.current.contains(event.target)) {
+    
             setIsVisible(false);
             setFromClicked(false);
             // calenderSelected("outside");
         }
+       
     };
 
   
@@ -94,7 +99,11 @@ useEffect(()=>{
     // Accessing individual parts
     const year = dateParts[0];  // "1995"
     const month = ETHIOPIAN_MONTH_NAMES[(parseInt(dateParts[1])-1)];
-    setSelectedImage(collectionImages[parseInt(dateParts[1]-1)]);
+    
+    setAnimateFadeOut(true);
+    setTimeout(()=>{
+        setSelectedImage(collectionImages[parseInt(dateParts[1]-1)]);
+    },1500);
     changeDesktopImage(collectionImages[parseInt(dateParts[1]-1)]);
      const monthGreg=dataPartsGreg[1];
     // "1"
@@ -111,6 +120,26 @@ useEffect(()=>{
     }
    }
 },[ethiopianDate,gregorianDate]);
+// useEffect(()=>{
+//   if(selectedImage != ""){
+//     setAnimateFadeOut(true);
+//   }
+// },[selectedImage]);
+useEffect(()=>{
+ if(animateFadeOut){
+    setTimeout(()=>{
+       setAnimateFadeOut(false);
+       setAnimateFadeIn(true);
+    },1700);
+ }
+},[animateFadeOut]);
+useEffect(()=>{
+  if(animateFadeIn){
+    setTimeout(()=>{
+        setAnimateFadeIn(false);
+    },1500);
+  }
+},[animateFadeIn]);
 // useEffect(()=>{
 //     if(gregorianDate != ""){
 //      const dateParts = gregorianDate.split('-');
@@ -144,7 +173,12 @@ useEffect(()=>{
                 <div className={` ${reduceOpacity ? "opacity-95":"animate-fade-in"} ${isDesktopOrLaptop ? "w-1/3":""} ${isMobile ? "w-full":""} ${isTablet ? "w-1/2":""} absolute bottom-0 h-1/2 ${showImageBackGround ? "":"bg-red-300"} flex justify-center items-start mt-4 cursor-pointer`}>
                      {
                         showImageBackGround && (
-                            <img src={selectedImage} className='w-full h-full absolute bottom-0 animate-fade-in'
+                            <img
+                            onClick={()=>{
+                              hideBothCalender();
+                              console.log("outside clicked");
+                            }}
+                            src={selectedImage} className={` ${animateFadeOut ? "animate-fade-out":""} ${animateFadeIn ? "animate-fade-in":""} w-full h-full absolute bottom-0`}
                             alt="" />
                         )
                      }
@@ -152,7 +186,7 @@ useEffect(()=>{
                 <div className='w-full  flex justify-around items-start p-4 rounded-lg shadow-lg z-10'>
                     <div
                     ref={refDiv}
-                    className='flex flex-col items-center justify-start w-full'>
+                    className={` ${false ? "hidden":""} flex flex-col items-center justify-start w-full`}>
                         <button 
                             className='bg-white w-full text-blue-600 px-4 py-2 rounded-lg transition duration-300 ease-in-out transform hover:scale-105'
                             onClick={() => {
@@ -204,9 +238,9 @@ useEffect(()=>{
                             </div>
                         )}
                     </div>
-                    <div className='flex flex-col items-center justify-start w-full'>
+                    <div className={`flex flex-col items-center justify-start w-full ${animateFadeOut ? "animate-shake ":""} `}>
                         <button 
-                            className='bg-white w-full text-blue-600 px-4 py-2 rounded-lg transition duration-300 ease-in-out transform hover:scale-105'
+                            className={` ${animateFadeOut ? "bg-green-300":"bg-white"} w-full text-blue-600 px-4 py-2 rounded-lg transition duration-300 ease-in-out transform hover:scale-105`}
                             onClick={() => setToClicked(!toClicked)}
                         >
                             {toText}

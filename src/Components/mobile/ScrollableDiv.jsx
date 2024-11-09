@@ -2,7 +2,7 @@ import React from 'react';
 
 const ScrollableYearSelector = ({sendSelectedYear,sendHideEthiopiaCalender}) => {
     const currentYear = new Date().getFullYear();
-    const numberOfYears = 100; // Total years to display (15 past + 15 future)
+    const numberOfYears = 50; // Total years to display (15 past + 15 future)
     const years = Array.from(
         { length: numberOfYears },
         (_, index) => currentYear - Math.floor(numberOfYears / 2) + index

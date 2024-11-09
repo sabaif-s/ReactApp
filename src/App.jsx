@@ -146,6 +146,10 @@ function changeDesktopImage(url){
     setChangeImage(true);
     setNewSetImage(url);
 }
+function hideBothCalender(){
+   setShowEthCalender(false);
+   setShowGregorianCalender(false);
+}
 
   return (
     <div className={` ${isTablet ? "":""} flex items-start justify-center h-screen w-full overflow-x-hidden relative bg-gray-600`}>
@@ -171,7 +175,7 @@ function changeDesktopImage(url){
               )
             }
             
-            <ConvertButton changeDesktopImage={changeDesktopImage} calenderSelected={calenderSelectedFunction} fromEthiopianToGregorian={fromEthioToGreg} fromGregorianToEthiopia={fromGregToEthio} fromTrack={functionFromTrackClicked} ethiopianDate={ethiopianDate} gregorianDate={gregorianDate}  />
+            <ConvertButton changeDesktopImage={changeDesktopImage} calenderSelected={calenderSelectedFunction} fromEthiopianToGregorian={fromEthioToGreg} fromGregorianToEthiopia={fromGregToEthio} hideBothCalender={hideBothCalender} fromTrack={functionFromTrackClicked} ethiopianDate={ethiopianDate} gregorianDate={gregorianDate}  />
             </>
           )
         }
