@@ -7,19 +7,21 @@ import imageShegar from '../../assets/pictures/shegar.avif';
 import imageSpring from '../../assets/pictures/springNew.avif';
 import imageSpringNew from '../../assets/pictures/spring.avif';
 import imageNewYear from '../../assets/pictures/new year.avif';
- 
+import icon from '../../assets/pictures/icons8-calendar-96.png';
 import desertMob from '../../assets/pictures/desert mob.avif';
 import forestMob from '../../assets/pictures/fores.avif';
 import forest2Mob from '../../assets/pictures/forest mobil.avif';
 import forest3Mob from '../../assets/pictures/forestt.avif';
 import riverMob from '../../assets/pictures/river.avif';
 import eve from '../../assets/pictures/evedeskt.avif'
+import gif from '../../assets/pictures/Pulse@1x-1.0s-200px-200px (1).gif';
+import sabaa from '../../assets/pictures/sabk.jpeg';
 const  BackGroundAsset = () => {
     const [pictureLoaded,setPictureLoaded]=useState(false);
     const [allPicturesLoaded,setAllPicturesLoaded]=useState(false);
     const [backAssetPic,setAssetPicBack]=useState([]);
     const [assetPicMonth,setAssetPicMonth]=useState([]);
-    const imageUrls=[mobileBack,desktopBack];
+    const imageUrls=[mobileBack,desktopBack,icon,gif,sabaa];
     const collectionImages=[imageNewYear,imageSpring,imageShegar,riverMob,forest2Mob,forest3Mob,forestMob,imageWheat,imageSpringNew,desertMob,imageShegar,forestMob,eve,];
     useEffect(() => {
         const loadImages = async () => {

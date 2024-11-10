@@ -1,5 +1,5 @@
 import { useEffect,React,useState } from "react";
-
+import BackGroundAsset from "./Components/mobile/BackGroundAsset";
 import BackGroundMobile from "./Components/mobile/BackGroundMobile";
 import GregorianCalender from "./Components/mobile/SecondComponent";
 import ConvertButton from "./Components/mobile/ConvertButton";
@@ -8,7 +8,7 @@ import EthiopianCalendar from "./Components/mobile/EthiopianCalender";
 import ComponentName from "./Components/mobile/Calculate";
 import IntroCalender from "./Components/mobile/IntroCalender";
 import ScreenSize from "./Components/mobile/ScreenSize";
-import BackGroundAsset from "./Components/mobile/BackGroundAsset";
+import LoadingImages from "./Components/loading/LoadingMobile";
 function App() {
  
   
@@ -30,6 +30,7 @@ function App() {
              const {pictureLoaded,allPicturesLoaded,assetPicMonth,backAssetPic}=BackGroundAsset();
              const [readyToRender,setReadyToRender]=useState(false);
              const [showCurrentCalender,setShowCurrentCalender]=useState(0);
+             const [showLoading,setShowLoading]=useState(false);
              useEffect(()=>{
                   if(finishBack){
                     console.log("finished back");
@@ -109,7 +110,12 @@ function App() {
       console.log("back asset pic: ",backAssetPic);
       console.log("asset pic month: ",assetPicMonth);
       if(backAssetPic.length > 0 && assetPicMonth.length > 0 && pictureLoaded && allPicturesLoaded){
-        setReadyToRender(true);
+          setShowLoading(true);
+        setTimeout(()=>{
+          setReadyToRender(true);
+          setShowLoading(false);
+        },7500);
+       
       }
   },[backAssetPic,assetPicMonth,allPicturesLoaded,pictureLoaded]);
   // useEffect(()=>{
@@ -167,14 +173,18 @@ function ShowCurrentCalenderFunction(){
 
   return (
     <>
-
+        {
+          showLoading && (
+            <LoadingImages backPics={backAssetPic}  />
+          )
+        }
      {
       readyToRender && (
         <div className={` ${isTablet ? "":""} flex items-start justify-center h-screen w-full overflow-x-hidden relative bg-gray-600`}>
         <BackGroundMobile backPics={backAssetPic}   finishedBack={backGroundFinished} changeImage={changeImage} newImage={newSetImage} />
         {
           showIntroCalender && (
-            <IntroCalender />
+            <IntroCalender backPics={backAssetPic} />
           )
         }
      
@@ -183,7 +193,7 @@ function ShowCurrentCalenderFunction(){
             <>
             {
               showGregorianCalender && (
-                <GregorianCalender sendGregorianData={receiveGregorianDate} />
+                <GregorianCalender sendGregorianData={receiveGregorianDate} backPics={backAssetPic} />
               )
             }
            

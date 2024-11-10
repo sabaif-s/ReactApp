@@ -13,6 +13,9 @@ module.exports = {
         'fade-in-always':"fadeInA 2s ease-in-out infinite",
         'fade-out': 'fadeOut 2s ease-in-out forwards',
         'shake': 'shake 1.5s ease-in-out',
+        'slide-up':'slideUp 1.5s ease-in-out forwards',
+        'slide-down':'slideDown 1.5s ease-in-out forwards',
+        'fade-in-half':"fadeInHalf 1.5s ease-in forwards"
       },
       keyframes: {
         slideDown: {
@@ -27,10 +30,22 @@ module.exports = {
           '0%': { opacity: 0.95 },
           '100%': { opacity: 1 },
         },
+        fadeInHalf: {
+          '0%': { opacity: 0.5 },
+          '100%': { opacity: 1 },
+        },
         fadeOut: {
           '0%': { opacity: 1 },
           '100%': { opacity: 0 },
         },
+        slideUp: {
+          '0%':{transform: 'translateY(0)'},
+          '100%':{transform :'translateY(-50px)'}
+      },
+      slideDown: {
+        '0%':{transform: 'translateY(0)'},
+        '100%':{transform :'translateY(30px)'}
+    },
         shake: {
           '0%': { transform: 'translateX(0) translateY(0)' },
           '25%': { transform: 'translateX(-10px) translateY(-10px)' },

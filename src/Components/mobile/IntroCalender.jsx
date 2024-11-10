@@ -1,8 +1,8 @@
 import React from 'react';
-import icon from '../../assets/pictures/rb_3839.png';
+ 
 import { useEffect,useState } from 'react';
 import ScreenSize from './ScreenSize';
-const  IntroCalender = () => {
+const  IntroCalender = ({backPics}) => {
     const [hideIntro,setHideIntro]=useState(false);
     const [fadeOut,setFadeOut]=useState(false);
     const {isDesktopOrLaptop,isTablet,isMobile}=ScreenSize();
@@ -30,8 +30,8 @@ const  IntroCalender = () => {
      </div>
              <div className={` ${isMobile || isTablet ? "w-80 h-80":""} ${isDesktopOrLaptop ? "w-80 h-80":""} relative animate-shake`}>
                  <img 
-                     src={icon} 
-                     className='w-full h-full absolute top-0 left-0 object-cover' 
+                     src={backPics[2].src} 
+                     className='w-full h-full absolute top-0 left-0 object-cover animate-fade-in' 
                      alt="" 
                  />
              </div>

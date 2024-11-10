@@ -1,5 +1,5 @@
 import React from 'react';
-import flag from '../../assets/pictures/ethio2.png';
+
  
 import { useEffect,useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
@@ -91,7 +91,10 @@ const  BackGroundMobile = ({backPics,finishedBack,changeImage,newImage}) => {
       },[showSecond]);
     const handleLoad=()=>{
         console.log("image loaded now");
-        setImageFullLoad(true);
+        
+         setImageFullLoad(true);
+        
+        
         
     }
 
@@ -108,8 +111,9 @@ const  BackGroundMobile = ({backPics,finishedBack,changeImage,newImage}) => {
        
                    </div>
                   <img 
+                     
                      onLoad={handleLoad} 
-                  src={backPics[0].src} className='w-full h-full' alt="" />
+                  src={backPics[0].src} className={`animate-fade-in w-full h-full` }alt="" />
                 </div>
              )
             }
@@ -122,7 +126,8 @@ const  BackGroundMobile = ({backPics,finishedBack,changeImage,newImage}) => {
                    </div>
                   <img 
                      onLoad={handleLoad} 
-                  src={backPics[0].src} className='w-full h-full' alt="" />
+                     loading="lazy" 
+                  src={backPics[0].src} className='animate-fade-in w-full h-full' alt="" />
                 </div>
              )
             }
@@ -137,14 +142,16 @@ const  BackGroundMobile = ({backPics,finishedBack,changeImage,newImage}) => {
                       newSettedImage != '' && (
                          <img 
                          onLoad={handleLoad} 
-                      src={newSettedImage} className='w-full h-full' alt="" />
+                         loading="lazy" 
+                      src={newSettedImage} className='animate-fade-in w-full h-full' alt="" />
                    )
                    }
                    {
                       newSettedImage == '' && (
                          <img 
                          onLoad={handleLoad} 
-                      src={backPics[1].src} className={` ${fadeOutFirst ? "animate-fade-out":""} w-full h-full`} alt="" />
+                         loading="lazy" 
+                      src={backPics[1].src} className={` ${fadeOutFirst ? "animate-fade-out":"animate-fade-in-half"} w-full h-full`} alt="" />
                       )
                    }
                  

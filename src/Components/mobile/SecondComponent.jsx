@@ -1,9 +1,9 @@
 import React from 'react';
 import { useState,useEffect } from 'react';
 import Datepicker from "tailwind-datepicker-react"
-import icon from '../../assets/pictures/icons8-calendar-96.png';
+ 
 import ScreenSize from './ScreenSize';
-const CalendarIcon = () => (
+const CalendarIcon = ({icon}) => (
     <img src={icon} className='w-20 h-20' alt="" />
    
     // <svg
@@ -21,7 +21,7 @@ const CalendarIcon = () => (
     //     />
     // </svg>
 );
-const  GregorianCalender = ({sendGregorianData}) => {
+const  GregorianCalender = ({sendGregorianData,backPics}) => {
     const {isDesktopOrLaptop,isMobile,isTablet}=ScreenSize();
     useEffect(()=>{
              setTimeout(()=>{
@@ -80,7 +80,7 @@ const  GregorianCalender = ({sendGregorianData}) => {
     }
     return (
         <div className='absolute w-full h-1/2 animate-slide-down z-20 flex flex-col justify-center items-center'>
-             <CalendarIcon /> {/* Calendar Icon */}
+             <CalendarIcon icon={backPics[2].src} /> {/* Calendar Icon */}
            <Datepicker options={options} onChange={handleChange} show={show} setShow={handleClose} classNames='animate-fade-in' >
                 <div className="flex flex-col justify-center bg-red-400 items-center animate-fade-in">
                    

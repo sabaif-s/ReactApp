@@ -6,11 +6,13 @@ function EthiopianCalendar({sendEthiopiaDate}){
        const [monthSelected,setMonthSelected]=useState(false);
        const [daySelected,setDaySelected]=useState(false);
        const days = Array.from({ length: 30 }, (_, index) => index + 1);
+       const daysPaguame = Array.from({ length: 6 }, (_, index) => index + 1);
        const [dateEthiopia,setDateEthiopia]=useState("");
        const [selectedDate,setSelectedDate]=useState("");
        const [selectedMonth,setSelectedMonth]=useState("");
        const [selectedYear,setSelectedYear]=useState("");
        const [hideEthioCalender,setHideEthioCalender]=useState(false);
+       const [paguameSelected,setPaguameSelected]=useState(false);
        const {isDesktopOrLaptop,isMobile,isTablet}=ScreenSize();
        useEffect(()=>{
                 if(selectedYear != ""){
@@ -25,6 +27,11 @@ function EthiopianCalendar({sendEthiopiaDate}){
                 sendEthiopiaDate(dateEthiopia);
               }
        },[dateEthiopia]);
+       useEffect(()=>{
+           if(selectedMonth == 13){
+            setPaguameSelected(true);
+           }
+       },[selectedMonth]);
     const ETHIOPIAN_MONTH_NAMES = [
         "መስከረም",
         "ጥቅምት",
@@ -70,8 +77,31 @@ function EthiopianCalendar({sendEthiopiaDate}){
                             </div>
                         ) 
                     }
+                     {
+                        monthSelected && !daySelected && paguameSelected && (
+                            <div className='h-full flex flex-col justify-start items-center overflow-y-scroll w-1/2 bg-white text-red-300'>
+                                  
+                                       {
+                                        
+                                        daysPaguame.map((item,index)=>{
+                                            return(
+                                                <span
+              onClick={()=>{
+                  console.log("clicked", index);
+                  setSelectedDate(item);
+                  setDaySelected(!daySelected);
+              }}
+               className='w-full text-center text-2xl border-green-300 p-4 border-4 rounded-lg'
+              key={index}>{item} </span>
+                                            )
+                                        })
+                                       }
+                                       
+                            </div>
+                        )
+                    }
                     {
-                        monthSelected && !daySelected && (
+                        monthSelected && !daySelected && !paguameSelected && (
                             <div className='h-full flex flex-col justify-start items-center overflow-y-scroll w-1/2 bg-white text-red-300'>
                                   
                                        {

@@ -54,7 +54,7 @@ const  ConvertButton = ({calenderSelected,backPics,collectionImage2,fromTrack,gr
         "ነሃሴ",
         "ፗጉሜ",
       ];
-
+    const GregorianDates=["JANUARY","FEBRUARY","MARCH","APRIL","MAY","JUNE","JULY","AUGUST","SEPTEMBER","OCTOBER","NOVEMBER","DECEMBER"]
       useEffect(() => {
         // Add event listener to the document
         document.addEventListener('mousedown', handleClickOutside);
@@ -94,18 +94,18 @@ useEffect(()=>{
         setSelectedImage(collectionImage2[parseInt(dateParts[1]-1)].src);
     },2000);
     changeDesktopImage(collectionImage2[parseInt(dateParts[1]-1)].src);
-     const monthGreg=dataPartsGreg[1];
+     const monthGreg= GregorianDates[(parseInt(dataPartsGreg[1])-1)] ;
     // "1"
     const day = dateParts[2];  
     const dayGreg=dataPartsGreg[2];
     console.log(`Year: ${year}, Month: ${month}, Day: ${day}`);
     if(fromGregorianToEthiopia){
-        setToText(`Year: ${year}, Month: ${month}, Day: ${day}`);
+        setToText(`አመት: ${year}, ወር: ${month}, ቀን: ${day}`);
         setFromText(`Year: ${yearGreg}, Month: ${monthGreg}, Day: ${dayGreg}`);
     }
     else{
         setToText(`Year: ${yearGreg}, Month: ${monthGreg}, Day: ${dayGreg}`);
-        setFromText(`Year: ${year}, Month: ${month}, Day: ${day}`);
+        setFromText(`አመት: ${year}, ወር: ${month}, ቀን: ${day}`);
     }
    }
 },[ethiopianDate,gregorianDate]);
