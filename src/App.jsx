@@ -8,6 +8,7 @@ import EthiopianCalendar from "./Components/mobile/EthiopianCalender";
 import ComponentName from "./Components/mobile/Calculate";
 import IntroCalender from "./Components/mobile/IntroCalender";
 import ScreenSize from "./Components/mobile/ScreenSize";
+import BackGroundAsset from "./Components/mobile/BackGroundAsset";
 function App() {
  
   
@@ -26,7 +27,9 @@ function App() {
              const {isDesktopOrLaptop,isMobile,isTablet}=ScreenSize();
              const [changeImage,setChangeImage]=useState(false);
              const [newSetImage,setNewSetImage]=useState("");
-
+             const {pictureLoaded,allPicturesLoaded,assetPicMonth,backAssetPic}=BackGroundAsset();
+             const [readyToRender,setReadyToRender]=useState(false);
+             const [showCurrentCalender,setShowCurrentCalender]=useState(0);
              useEffect(()=>{
                   if(finishBack){
                     console.log("finished back");
@@ -68,7 +71,7 @@ function App() {
             setCalenderSelected(calender);
   }
   useEffect(()=>{
-        if(calenderSelected == "ethiopia" && fromClicked != 0){
+        if(calenderSelected == "ethiopia" && showCurrentCalender != 0){
            if(!showEthCalender){
             setShowEthCalender(true);
             
@@ -80,7 +83,7 @@ function App() {
            }
          
         }
-        else if(calenderSelected == "gregorian" && fromClicked !=0){
+        else if(calenderSelected == "gregorian" && showCurrentCalender !=0){
           if(!showGregorianCalender){
             setShowGregorianCalender(true);
             
@@ -96,12 +99,19 @@ function App() {
           setShowGregorianCalender(false);
           setShowEthCalender(false);
         }
-  },[calenderSelected,fromClicked]);
+  },[calenderSelected,showCurrentCalender]);
   useEffect(()=>{
             setTimeout(()=>{
                setShowIntroCalender(true);
             },1000);
   },[]);
+  useEffect(()=>{
+      console.log("back asset pic: ",backAssetPic);
+      console.log("asset pic month: ",assetPicMonth);
+      if(backAssetPic.length > 0 && assetPicMonth.length > 0 && pictureLoaded && allPicturesLoaded){
+        setReadyToRender(true);
+      }
+  },[backAssetPic,assetPicMonth,allPicturesLoaded,pictureLoaded]);
   // useEffect(()=>{
   //           if(showGregorianCalender){
   //             setShowEthCalender(false);
@@ -130,6 +140,7 @@ function App() {
     setFromGregToEthiopia(false);
            setFromEthioToGreg(true);
   }
+  
   const formatDate = (dateString) => {
     // Parse the date string
     const date = new Date(dateString);
@@ -150,10 +161,17 @@ function hideBothCalender(){
    setShowEthCalender(false);
    setShowGregorianCalender(false);
 }
+function ShowCurrentCalenderFunction(){
+  setShowCurrentCalender(prev => prev + 1);
+}
 
   return (
-    <div className={` ${isTablet ? "":""} flex items-start justify-center h-screen w-full overflow-x-hidden relative bg-gray-600`}>
-        <BackGroundMobile   finishedBack={backGroundFinished} changeImage={changeImage} newImage={newSetImage} />
+    <>
+
+     {
+      readyToRender && (
+        <div className={` ${isTablet ? "":""} flex items-start justify-center h-screen w-full overflow-x-hidden relative bg-gray-600`}>
+        <BackGroundMobile backPics={backAssetPic}   finishedBack={backGroundFinished} changeImage={changeImage} newImage={newSetImage} />
         {
           showIntroCalender && (
             <IntroCalender />
@@ -175,11 +193,15 @@ function hideBothCalender(){
               )
             }
             
-            <ConvertButton changeDesktopImage={changeDesktopImage} calenderSelected={calenderSelectedFunction} fromEthiopianToGregorian={fromEthioToGreg} fromGregorianToEthiopia={fromGregToEthio} hideBothCalender={hideBothCalender} fromTrack={functionFromTrackClicked} ethiopianDate={ethiopianDate} gregorianDate={gregorianDate}  />
+            <ConvertButton showCurrentCalender={ShowCurrentCalenderFunction} collectionImage2={assetPicMonth} backPics={backAssetPic} changeDesktopImage={changeDesktopImage} calenderSelected={calenderSelectedFunction} fromEthiopianToGregorian={fromEthioToGreg} fromGregorianToEthiopia={fromGregToEthio} hideBothCalender={hideBothCalender} fromTrack={functionFromTrackClicked} ethiopianDate={ethiopianDate} gregorianDate={gregorianDate}  />
             </>
           )
         }
     </div>
+      )
+     }
+   
+    </>
   );
 }
 

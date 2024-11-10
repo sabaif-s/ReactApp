@@ -17,7 +17,7 @@ import riverMob from '../../assets/pictures/river.avif';
 import eve from '../../assets/pictures/evedeskt.avif'
 
 import ComponentName from './Calculate';
-const  ConvertButton = ({calenderSelected,fromTrack,gregorianDate,ethiopianDate,fromEthiopianToGregorian,fromGregorianToEthiopia,changeDesktopImage,hideBothCalender}) => {
+const  ConvertButton = ({calenderSelected,backPics,collectionImage2,fromTrack,gregorianDate,ethiopianDate,fromEthiopianToGregorian,showCurrentCalender,fromGregorianToEthiopia,changeDesktopImage,hideBothCalender}) => {
     const [fromClicked,setFromClicked]=useState(false);
     const [toClicked,setToClicked]=useState(false);
     const [ecClickedFrom,setEcClickedFrom]=useState(false);
@@ -36,7 +36,7 @@ const  ConvertButton = ({calenderSelected,fromTrack,gregorianDate,ethiopianDate,
     const [hideCalender,setHideCalender]=useState(false);
     const [animateFadeOut,setAnimateFadeOut]=useState(false);
     const [animateFadeIn,setAnimateFadeIn]=useState(false);
-    const collectionImages=[imageNewYear,imageSpring,imageShegar,riverMob,forest2Mob,forest3Mob,forestMob,imageWheat,imageSpringNew,desertMob,imageShegar,forestMob,eve,];
+    const collectionImages=[imageNewYear,imageSpring,imageShegar,riverMob ,forest2Mob,forest3Mob,forestMob,imageWheat,imageSpringNew,desertMob,imageShegar,forestMob,eve,];
     const handleClickOutside = (event) => {
         // Check if the click is outside the component
         if (refDiv.current && !refDiv.current.contains(event.target)) {
@@ -102,9 +102,9 @@ useEffect(()=>{
     
     setAnimateFadeOut(true);
     setTimeout(()=>{
-        setSelectedImage(collectionImages[parseInt(dateParts[1]-1)]);
-    },1500);
-    changeDesktopImage(collectionImages[parseInt(dateParts[1]-1)]);
+        setSelectedImage(collectionImage2[parseInt(dateParts[1]-1)].src);
+    },2000);
+    changeDesktopImage(collectionImage2[parseInt(dateParts[1]-1)].src);
      const monthGreg=dataPartsGreg[1];
     // "1"
     const day = dateParts[2];  
@@ -130,7 +130,7 @@ useEffect(()=>{
     setTimeout(()=>{
        setAnimateFadeOut(false);
        setAnimateFadeIn(true);
-    },1700);
+    },2000);
  }
 },[animateFadeOut]);
 useEffect(()=>{
@@ -178,7 +178,7 @@ useEffect(()=>{
                               hideBothCalender();
                               console.log("outside clicked");
                             }}
-                            src={selectedImage} className={` ${animateFadeOut ? "animate-fade-out":""} ${animateFadeIn ? "animate-fade-in":""} w-full h-full absolute bottom-0`}
+                            src={ selectedImage == "" ?   backPics[0].src:selectedImage} className={` ${animateFadeOut ? "animate-fade-out":""} ${animateFadeIn ? "animate-fade-in":""} w-full h-full absolute bottom-0`}
                             alt="" />
                         )
                      }
@@ -191,7 +191,13 @@ useEffect(()=>{
                             className='bg-white w-full text-blue-600 px-4 py-2 rounded-lg transition duration-300 ease-in-out transform hover:scale-105'
                             onClick={() => {
                                 setFromClicked(!fromClicked);
-                                fromTrack();
+                                if(fromClicked){
+                                    hideBothCalender();
+                                }
+                                else{
+                                    showCurrentCalender();
+                                }
+                                // fromTrack();
         
                             } }
                         >
