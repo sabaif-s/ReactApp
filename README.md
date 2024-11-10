@@ -20,6 +20,6 @@ Currently, two official plugins are available for enhanced functionality:
 To get started with the project, clone the repository and install the dependencies:
 
 ```bash
-git clone https://github.com/yourusername/calendar-converter.git
-cd calendar-converter
+git clone https://github.com/sabaif-s/ReactApp.git
+cd ReactApp
 npm install
