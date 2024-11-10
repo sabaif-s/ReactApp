@@ -3,18 +3,7 @@ import { useState,useEffect,useRef } from 'react';
 import { ET,US } from 'country-flag-icons/react/3x2'
 import ScrollableYearSelector from './ScrollableDiv';
 import ScreenSize from './ScreenSize';
-import imageWheat from '../../assets/pictures/wheat.avif';
-import imageShegar from '../../assets/pictures/shegar.avif';
-import imageSpring from '../../assets/pictures/springNew.avif';
-import imageSpringNew from '../../assets/pictures/spring.avif';
-import imageNewYear from '../../assets/pictures/new year.avif';
  
-import desertMob from '../../assets/pictures/desert mob.avif';
-import forestMob from '../../assets/pictures/fores.avif';
-import forest2Mob from '../../assets/pictures/forest mobil.avif';
-import forest3Mob from '../../assets/pictures/forestt.avif';
-import riverMob from '../../assets/pictures/river.avif';
-import eve from '../../assets/pictures/evedeskt.avif'
 
 import ComponentName from './Calculate';
 const  ConvertButton = ({calenderSelected,backPics,collectionImage2,fromTrack,gregorianDate,ethiopianDate,fromEthiopianToGregorian,showCurrentCalender,fromGregorianToEthiopia,changeDesktopImage,hideBothCalender}) => {
@@ -36,7 +25,7 @@ const  ConvertButton = ({calenderSelected,backPics,collectionImage2,fromTrack,gr
     const [hideCalender,setHideCalender]=useState(false);
     const [animateFadeOut,setAnimateFadeOut]=useState(false);
     const [animateFadeIn,setAnimateFadeIn]=useState(false);
-    const collectionImages=[imageNewYear,imageSpring,imageShegar,riverMob ,forest2Mob,forest3Mob,forestMob,imageWheat,imageSpringNew,desertMob,imageShegar,forestMob,eve,];
+ 
     const handleClickOutside = (event) => {
         // Check if the click is outside the component
         if (refDiv.current && !refDiv.current.contains(event.target)) {

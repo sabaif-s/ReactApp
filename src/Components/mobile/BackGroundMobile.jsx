@@ -1,10 +1,10 @@
 import React from 'react';
 import flag from '../../assets/pictures/ethio2.png';
-import flagDesktop from '../../assets/pictures/premium_photo-1674591173440-e559d2f73dc4.png';
+ 
 import { useEffect,useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import ScreenSize from './ScreenSize';
-import desktopBack from '../../assets/pictures/48421.jpg';
+ 
 // import BackGroundAsset from './BackGroundAsset';
 const  BackGroundMobile = ({backPics,finishedBack,changeImage,newImage}) => {
     const [imageFullLoad,setImageFullLoad]=useState(false);
