@@ -118,16 +118,7 @@ function App() {
        
       }
   },[backAssetPic,assetPicMonth,allPicturesLoaded,pictureLoaded]);
-  // useEffect(()=>{
-  //           if(showGregorianCalender){
-  //             setShowEthCalender(false);
-  //           }
-  // },[showGregorianCalender]);
-  // useEffect(()=>{
-  //           if(showEthCalender){
-  //             setShowGregorianCalender(true);
-  //           }
-  // },[showEthCalender]);
+  
 
   const functionFromTrackClicked = ()=> {
        setFromClicked(prev => prev + 1);

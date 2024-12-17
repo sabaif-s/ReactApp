@@ -12,7 +12,7 @@ createRoot(document.getElementById('root')).render(
     <Routes>
    
       <Route path='/ReactApp' element={<App/>}></Route>
-        <Route path='/ReactApp/loading' element={<LoadingImages/>} ></Route>
+        {/* <Route path='/ReactApp/loading' element={<LoadingImages/>} ></Route> */}
       
     </Routes>
     </Router>

@@ -159,7 +159,7 @@ useEffect(()=>{
         <>
            {
             animateInComponent && (
-                <div className={` ${reduceOpacity ? "opacity-95":"animate-fade-in"} ${isDesktopOrLaptop ? "w-1/3":""} ${isMobile ? "w-full":""} ${isTablet ? "w-1/2":""} absolute bottom-0 h-1/2 ${showImageBackGround ? "":"bg-red-300"} flex justify-center items-start mt-4 cursor-pointer`}>
+                <div className={` ${reduceOpacity ? "opacity-95":"animate-fade-in"} ${isDesktopOrLaptop ? "w-1/3":""} ${isMobile ? "w-full":""} ${isTablet ? "w-2/3":""} absolute bottom-0 h-1/2 ${showImageBackGround ? "":"bg-red-300"} flex justify-center items-start mt-4 cursor-pointer`}>
                      {
                         showImageBackGround && (
                             <img
