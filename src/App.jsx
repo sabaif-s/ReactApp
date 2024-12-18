@@ -1,14 +1,14 @@
-import { useEffect,React,useState } from "react";
-import BackGroundAsset from "./Components/mobile/BackGroundAsset";
+import { useEffect,React,useState,Suspense,lazy } from "react";
+ 
 import BackGroundMobile from "./Components/mobile/BackGroundMobile";
 import GregorianCalender from "./Components/mobile/SecondComponent";
-import ConvertButton from "./Components/mobile/ConvertButton";
-// import ComponentName from "./Components/mobile/Calculate";
+ 
 import EthiopianCalendar from "./Components/mobile/EthiopianCalender";
 import ComponentName from "./Components/mobile/Calculate";
 import IntroCalender from "./Components/mobile/IntroCalender";
 import ScreenSize from "./Components/mobile/ScreenSize";
 import LoadingImages from "./Components/loading/LoadingMobile";
+import BackGroundAsset from './Components/mobile/BackGroundAsset';
 function App() {
  
   
@@ -17,6 +17,8 @@ function App() {
              const [showEthCalender,setShowEthCalender]=useState(false);
              const [showGregorianCalender,setShowGregorianCalender]=useState(false);
              const [fromClicked,setFromClicked]=useState(0);
+             const [fetchImage,setFetchImage]=useState(false);
+             const { pictureLoaded, allPicturesLoaded, assetPicMonth } = BackGroundAsset(fetchImage);
              const [gregorianDate,setGregorianDate]=useState("");
              const [ethiopianDateToConvert,setEthiopianDateToConvert]=useState("");
              const {calculatedResult,calculatedResultEthiopia}=ComponentName(gregorianDate,ethiopianDateToConvert);
@@ -27,16 +29,22 @@ function App() {
              const {isDesktopOrLaptop,isMobile,isTablet}=ScreenSize();
              const [changeImage,setChangeImage]=useState(false);
              const [newSetImage,setNewSetImage]=useState("");
-             const {pictureLoaded,allPicturesLoaded,assetPicMonth,backAssetPic}=BackGroundAsset();
+            
              const [readyToRender,setReadyToRender]=useState(false);
              const [showCurrentCalender,setShowCurrentCalender]=useState(0);
              const [showLoading,setShowLoading]=useState(false);
+             const ConvertButton = lazy(() => import('./Components/mobile/ConvertButton'));
              useEffect(()=>{
                   if(finishBack){
                     console.log("finished back");
                     setFinishBack(true);
                   }
              },[finishBack]);
+             useEffect(()=>{
+                   if(allPicturesLoaded){
+                    setShowLoading(false);
+                   }
+             },[allPicturesLoaded]);
              useEffect(()=>{
                   
              },[gregorianDate,ethiopianDate]);
@@ -107,17 +115,14 @@ function App() {
             },1000);
   },[]);
   useEffect(()=>{
-      console.log("back asset pic: ",backAssetPic);
-      console.log("asset pic month: ",assetPicMonth);
-      if(backAssetPic.length > 0 && assetPicMonth.length > 0 && pictureLoaded && allPicturesLoaded){
-          setShowLoading(true);
-        setTimeout(()=>{
-          setReadyToRender(true);
-          setShowLoading(false);
-        },7500);
        
-      }
-  },[backAssetPic,assetPicMonth,allPicturesLoaded,pictureLoaded]);
+      
+          setShowLoading(true);
+          
+         
+       
+      
+  },[]);
   
 
   const functionFromTrackClicked = ()=> {
@@ -162,20 +167,26 @@ function ShowCurrentCalenderFunction(){
   setShowCurrentCalender(prev => prev + 1);
 }
 
+function backImageLoaded(){
+   
+  setFetchImage(true);
+}
+
   return (
     <>
         {
           showLoading && (
-            <LoadingImages backPics={backAssetPic}  />
+            <LoadingImages  />
           )
         }
+        
      {
-      readyToRender && (
+      true && (
         <div className={` ${isTablet ? "":""} flex items-start justify-center h-screen w-full overflow-x-hidden relative bg-gray-600`}>
-        <BackGroundMobile backPics={backAssetPic}   finishedBack={backGroundFinished} changeImage={changeImage} newImage={newSetImage} />
+        <BackGroundMobile backImageLoaded={backImageLoaded}  finishedBack={backGroundFinished} changeImage={changeImage} newImage={newSetImage} />
         {
           showIntroCalender && (
-            <IntroCalender backPics={backAssetPic} />
+            <IntroCalender />
           )
         }
      
@@ -184,7 +195,7 @@ function ShowCurrentCalenderFunction(){
             <>
             {
               showGregorianCalender && (
-                <GregorianCalender sendGregorianData={receiveGregorianDate} backPics={backAssetPic} />
+                <GregorianCalender sendGregorianData={receiveGregorianDate}  />
               )
             }
            
@@ -193,8 +204,10 @@ function ShowCurrentCalenderFunction(){
                 <EthiopianCalendar  sendEthiopiaDate={receiveEthiopianDate} />
               )
             }
-            
-            <ConvertButton showCurrentCalender={ShowCurrentCalenderFunction} collectionImage2={assetPicMonth} backPics={backAssetPic} changeDesktopImage={changeDesktopImage} calenderSelected={calenderSelectedFunction} fromEthiopianToGregorian={fromEthioToGreg} fromGregorianToEthiopia={fromGregToEthio} hideBothCalender={hideBothCalender} fromTrack={functionFromTrackClicked} ethiopianDate={ethiopianDate} gregorianDate={gregorianDate}  />
+                <Suspense fallback={<div>Loading...</div>}>
+                <ConvertButton showCurrentCalender={ShowCurrentCalenderFunction} changeDesktopImage={changeDesktopImage} calenderSelected={calenderSelectedFunction} assetPicMonth={assetPicMonth} fromEthiopianToGregorian={fromEthioToGreg} fromGregorianToEthiopia={fromGregToEthio} hideBothCalender={hideBothCalender} fromTrack={functionFromTrackClicked} ethiopianDate={ethiopianDate} gregorianDate={gregorianDate}  />
+      </Suspense>
+
             </>
           )
         }

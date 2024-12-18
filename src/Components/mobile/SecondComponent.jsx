@@ -21,7 +21,7 @@ const CalendarIcon = ({icon}) => (
     //     />
     // </svg>
 );
-const  GregorianCalender = ({sendGregorianData,backPics}) => {
+const  GregorianCalender = ({sendGregorianData}) => {
     const {isDesktopOrLaptop,isMobile,isTablet}=ScreenSize();
     useEffect(()=>{
              setTimeout(()=>{
@@ -80,18 +80,11 @@ const  GregorianCalender = ({sendGregorianData,backPics}) => {
     }
     return (
         <div className='absolute w-full h-1/2 animate-slide-down z-20 flex flex-col justify-center items-center'>
-             <CalendarIcon icon={backPics[2].src} /> {/* Calendar Icon */}
+             <CalendarIcon icon="/ReactApp/icons8-calendar-96.png" /> {/* Calendar Icon */}
            <Datepicker options={options} onChange={handleChange} show={show} setShow={handleClose} classNames='animate-fade-in' >
                 <div className="flex flex-col justify-center bg-red-400 items-center animate-fade-in">
                    
-                    {/* <input 
-                        type="text" 
-                        className="w-full border p-2 rounded" 
-                        placeholder="Select Date" 
-                        value={selectedDate} 
-                        onFocus={() => setShow(true)} 
-                        readOnly 
-                    /> */}
+                   
                 </div>
             </Datepicker>
 

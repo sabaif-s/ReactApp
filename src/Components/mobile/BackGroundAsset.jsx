@@ -1,22 +1,22 @@
 import React from 'react';
 import { useEffect,useState } from 'react';
-import mobileBack from '../../assets/pictures/ethio2.png';
-import desktopBack from '../../assets/pictures/48421.jpg';
-import imageWheat from '../../assets/pictures/wheat.avif';
-import imageShegar from '../../assets/pictures/shegar.avif';
-import imageSpring from '../../assets/pictures/springNew.avif';
-import imageSpringNew from '../../assets/pictures/spring.avif';
-import imageNewYear from '../../assets/pictures/new year.avif';
+import mobileBack from '../../assets/pictures/ethio2_11zon.jpg';
+import desktopBack from '../../assets/pictures/48421_6_11zon.jpg';
+import imageWheat from '../../assets/pictures/wheat_24_11zon.jpg';
+import imageShegar from '../../assets/pictures/shegar_4_11zon.jpg';
+import imageSpring from '../../assets/pictures/spring_5_11zon.jpg';
+import imageSpringNew from '../../assets/pictures/spring_22_11zon.jpg';
+import imageNewYear from '../../assets/pictures/new year_18_11zon.jpg';
 import icon from '../../assets/pictures/icons8-calendar-96.png';
-import desertMob from '../../assets/pictures/desert mob.avif';
-import forestMob from '../../assets/pictures/fores.avif';
-import forest2Mob from '../../assets/pictures/forest mobil.avif';
-import forest3Mob from '../../assets/pictures/forestt.avif';
-import riverMob from '../../assets/pictures/river.avif';
-import eve from '../../assets/pictures/evedeskt.avif'
+import desertMob from '../../assets/pictures/desert deskt_7_11zon.jpg';
+import forestMob from '../../assets/pictures/fores_13_11zon.jpg';
+import forest2Mob from '../../assets/pictures/forest mobil_16_11zon.jpg';
+import forest3Mob from '../../assets/pictures/forestt_17_11zon.jpg';
+import riverMob from '../../assets/pictures/river_11zon.jpg';
+import eve from '../../assets/pictures/evedeskt_11_11zon.jpg'
 import gif from '../../assets/pictures/Pulse@1x-1.0s-200px-200px (1).gif';
 import sabaa from '../../assets/pictures/sabk.jpeg';
-const  BackGroundAsset = () => {
+const  BackGroundAsset = (fetchImage) => {
     const [pictureLoaded,setPictureLoaded]=useState(false);
     const [allPicturesLoaded,setAllPicturesLoaded]=useState(false);
     const [backAssetPic,setAssetPicBack]=useState([]);
@@ -48,8 +48,11 @@ const  BackGroundAsset = () => {
         };
     
         // Call the loadImages function
-        loadImages();
-      }, []);
+        if(fetchImage == true){
+          loadImages();
+        }
+        
+      }, [fetchImage]);
       useEffect(() => {
         const loadImagesButtons = async () => {
           try {
@@ -75,8 +78,12 @@ const  BackGroundAsset = () => {
         };
     
         // Call the loadImages function
-        loadImagesButtons();
-      }, []);
+        if(fetchImage == true){
+          console.log("fetch image true");
+          loadImagesButtons();
+        }
+        
+      }, [fetchImage]);
     
       return{pictureLoaded,allPicturesLoaded,backAssetPic,assetPicMonth}
 };

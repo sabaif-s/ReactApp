@@ -2,11 +2,11 @@ import React from 'react';
 
  
 import { useEffect,useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
+ 
 import ScreenSize from './ScreenSize';
  
-// import BackGroundAsset from './BackGroundAsset';
-const  BackGroundMobile = ({backPics,finishedBack,changeImage,newImage}) => {
+ 
+const  BackGroundMobile = ({finishedBack,changeImage,newImage,backImageLoaded}) => {
     const [imageFullLoad,setImageFullLoad]=useState(false);
     const [showSecond,setShowSecond]=useState(false);
     const {isDesktopOrLaptop,isMobile,isTablet}=ScreenSize();
@@ -16,7 +16,7 @@ const  BackGroundMobile = ({backPics,finishedBack,changeImage,newImage}) => {
     const [fadeOutSecond,setFadeOutSecond]=useState(false);
     const [currentImage,setCurrentImage]=useState(0);
     const [fadeInSecond,setFadeInSecond]=useState(false);
-   //  const {pictureLoaded,allPicturesLoaded,assetPicMonth,backAssetPic}=BackGroundAsset();
+  
 
 
     useEffect(()=>{
@@ -46,17 +46,7 @@ const  BackGroundMobile = ({backPics,finishedBack,changeImage,newImage}) => {
             },1000);
          }
     },[fadeInSecond]);
-   //  useEffect(()=>{
-   //   if(pictureLoaded && !allPicturesLoaded){
-   //    console.log("picture loaded but not all");
-   //   }
-   //   else if(pictureLoaded && allPicturesLoaded){
-   //    console.log("both loaded");
-   //   }
-   //   else{
-   //    console.log("picture not loads");
-   //   }
-   //  },[pictureLoaded,allPicturesLoaded]);
+   
     
     useEffect(()=>{
        if(currentImage > 1){
@@ -90,12 +80,9 @@ const  BackGroundMobile = ({backPics,finishedBack,changeImage,newImage}) => {
                 }
       },[showSecond]);
     const handleLoad=()=>{
-        console.log("image loaded now");
-        
-         setImageFullLoad(true);
-        
-        
-        
+        console.log("image loaded now");   
+         setImageFullLoad(true);  
+         backImageLoaded(true);
     }
 
     return (
@@ -113,7 +100,7 @@ const  BackGroundMobile = ({backPics,finishedBack,changeImage,newImage}) => {
                   <img 
                      
                      onLoad={handleLoad} 
-                  src={backPics[0].src} className={`animate-fade-in w-full h-full` }alt="" />
+                  src="/ReactApp/ethio2_11zon.jpg" className={` ${imageFullLoad ? "opacity-100":"opacity-10"} animate-fade-in w-full h-full` }alt="" />
                 </div>
              )
             }
@@ -127,7 +114,7 @@ const  BackGroundMobile = ({backPics,finishedBack,changeImage,newImage}) => {
                   <img 
                      onLoad={handleLoad} 
                      loading="lazy" 
-                  src={backPics[0].src} className='animate-fade-in w-full h-full' alt="" />
+                  src="/ReactApp/ethio2_11zon.jpg" className={` ${imageFullLoad ? "opacity-100":"opacity-10"}  animate-fade-in w-full h-full`} alt="" />
                 </div>
              )
             }
@@ -143,7 +130,7 @@ const  BackGroundMobile = ({backPics,finishedBack,changeImage,newImage}) => {
                          <img 
                          onLoad={handleLoad} 
                          loading="lazy" 
-                      src={newSettedImage} className='animate-fade-in w-full h-full' alt="" />
+                      src={newSettedImage} className={`   animate-fade-in w-full h-full`} alt="" />
                    )
                    }
                    {
@@ -151,7 +138,7 @@ const  BackGroundMobile = ({backPics,finishedBack,changeImage,newImage}) => {
                          <img 
                          onLoad={handleLoad} 
                          loading="lazy" 
-                      src={backPics[1].src} className={` ${fadeOutFirst ? "animate-fade-out":"animate-fade-in-half"} w-full h-full`} alt="" />
+                      src="/ReactApp/ethio2_11zon.jpg" className={` ${imageFullLoad ? "opacity-100":"opacity-10"}  ${fadeOutFirst ? "animate-fade-out":"animate-fade-in-half"} w-full h-full`} alt="" />
                       )
                    }
                  
