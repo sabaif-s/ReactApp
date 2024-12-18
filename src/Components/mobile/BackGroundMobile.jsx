@@ -138,7 +138,7 @@ const  BackGroundMobile = ({finishedBack,changeImage,newImage,backImageLoaded}) 
                          <img 
                          onLoad={handleLoad} 
                          loading="lazy" 
-                      src="/ReactApp/ethio2_11zon.jpg" className={` ${imageFullLoad ? "opacity-100":"opacity-10"}  ${fadeOutFirst ? "animate-fade-out":"animate-fade-in-half"} w-full h-full`} alt="" />
+                      src="/ReactApp/48421_6_11zon.jpg" className={` ${imageFullLoad ? "opacity-100":"opacity-10"}  ${fadeOutFirst ? "animate-fade-out":"animate-fade-in-half"} w-full h-full`} alt="" />
                       )
                    }
                  
